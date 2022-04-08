@@ -1,0 +1,93 @@
+﻿<Window x:Class="E3PC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:E3PC"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"        
+        WindowStartupLocation="CenterScreen"
+        Title="E3TV Loader" Height="360" Width="640">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="E3 Config">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Launcher Url" TextAlignment="Right" VerticalAlignment="Center" Margin="10"/>
+                    <ComboBox Name="CboLauncherUrl" IsEditable="True" Text="{Binding LauncherUrl}" ItemsSource="{Binding LauncherUrls}"  Grid.Column="1" Margin="10" />
+                    <Button Name="BtnInstallE3" Grid.Column="2" MinWidth="60" Margin="0,10,10,10" Click="BtnInstallE3_Click">Install</Button>
+                    
+                    <TextBlock Text="Installed E3 Version" TextAlignment="Right" VerticalAlignment="Center"  Grid.Row="1" Margin="10,0,10,10" />
+                    <ComboBox Name="CboInstalledVersion" Text="{Binding SelectedE3Version}" ItemsSource="{Binding InstalledVersions}" SelectionChanged="CboInstalledVersion_SelectionChanged" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" />
+                    <Button Name="BtnUninstallE3" Grid.Column="2" Margin="0,0,10,10" MinWidth="60" Grid.Row="1" Click="BtnUninstallE3_Click">Uninstall</Button>
+
+                    <TextBlock Text="ClientId/SwitchPort" TextAlignment="Right" VerticalAlignment="Center" Margin="10,0,10,10" Grid.Row="2" />
+                    <ComboBox Name="TxtClientId" IsEditable="True" Text="{Binding ClientId}" ItemsSource="{Binding ClientIds}" Grid.Row="2" Grid.Column="1" Margin="10,0,10,10" />
+                    <Button Name="BtnVerifySTB" Grid.Column="2" Margin="0,0,10,10" MinWidth="60" Grid.Row="2" Click="BtnVerifySTB_Click">Verify...</Button>
+
+                    <TextBlock Text="Backend Server" TextAlignment="Right" VerticalAlignment="Center" Margin="10,0,10,10" Grid.Row="3" />
+                    <ComboBox Name="CboBackendServer" IsEditable="True" Text="{Binding BackendUrl}" ItemsSource="{Binding BackendUrls}" Grid.Row="3" Grid.Column="1" Margin="10,0,10,10" />
+                    <Button Name="BtnVerifyBE" Grid.Column="2" Margin="0,0,10,10" MinWidth="60" Grid.Row="3" Click="BtnVerifyBE_Click">Verify...</Button>
+
+                    <Button MinWidth="75" Margin="10,0,10,10" Grid.Row="4" Grid.Column="1" Click="BtnStartE3_Click">Start E3</Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <!--
+                    <TextBlock Text="Browser Exe" TextAlignment="Right" VerticalAlignment="Center" Margin="10" />
+                    <ComboBox Name="TxtBrowserExe" IsEditable="True" Text="{Binding BrowserExe}" ItemsSource="{Binding BrowserExes}" Grid.Column="1" Margin="10" />
+                    <Button Name="BtnBrowseBrowserExe" Grid.Column="2" MinWidth="50" Margin="0,10,10,10" Click="BtnBrowseBrowserExe_Click">...</Button>
+
+                    <TextBlock Text="Browser Args" TextAlignment="Right" VerticalAlignment="Center" Margin="10,0,10,10" Grid.Row="1" />
+                    <ComboBox Name="TxtBrowserArgs" IsEditable="True" Text="{Binding BrowserArgs}" Grid.Row="1" Grid.Column="1" Margin="10,0,10,10" />
+                    -->
+
+                    <TextBlock Text="Local Folder" TextAlignment="Right" VerticalAlignment="Center" Margin="10"/>
+                    <TextBox Name="TxtLocalFolder" Text="{Binding LocalFolder}" Grid.Column="1" Margin="10" />
+                    <Button Name="BtnBrowseLocalFolder" Grid.Column="2" MinWidth="50" Margin="0,10,10,10" Click="BtnBrowseLocalFolder_Click">Browse...</Button>
+
+                    <TextBlock Text="Software Update" TextAlignment="Right" VerticalAlignment="Center" Margin="10,0,10,10" Grid.Row="1"/>
+                    <ComboBox Name="CboUpdateUrl" IsEditable="True" Text="{Binding UpdateUrl}" Grid.Row="1" Grid.Column="1" Margin="10,0,10,10" />
+                    <Button Name="BtnCheckUpdate" Grid.Column="2" Grid.Row="1" MinWidth="50" Margin="0,0,10,10" Click="BtnCheckUpdate_Click">Check...</Button>
+
+                    <TextBlock Text="Zip Tool" TextAlignment="Right" VerticalAlignment="Center" Margin="10,0,10,10" Grid.Row="3"/>
+                    <ComboBox Name="CboZipToolExe" IsEditable="True" Text="{Binding ZipToolExe}" Grid.Row="3" Grid.Column="1" Margin="10,0,10,10" />
+                    <Button Name="BtnBrowseZipToolExe" Grid.Column="2" Grid.Row="3" MinWidth="50" Margin="0,0,10,10" Click="BtnBrowseZipToolExe_Click">Browse...</Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="1" Background="AliceBlue" Orientation="Horizontal">
+            <Button MinWidth="75" Margin="10" Click="BtnExit_Click">Exit</Button>
+            <TextBlock Name="TxtStatus" Margin="0,10,10,10" />
+        </StackPanel>
+    </Grid>
+</Window>
